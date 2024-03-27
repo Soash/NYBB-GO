@@ -54,7 +54,8 @@ def signin(request):
             return redirect('index')
         else:
             return redirect('signin')
-    return render(request, 'signin.html')
+    else:
+        return render(request, 'signin.html')
 
 def signout(request):
     logout(request)
