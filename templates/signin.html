@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'common.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'signup.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+</head>
+<body>
+
+    
+
+    <h1>Sign In</h1>
+
+
+    <form method="post" action=""> {% csrf_token %}
+
+        <label for="username">Username</label>
+        <input type="text" name="username" placeholder="Enter Your Username" Required>
+
+        <label for="pass1">Password</label> 
+        <input type="password" name="pass1" placeholder="Enter Your Password" id="pass1"  Required>
+ 
+        <button type="submit">Sign In</button>
+
+    </form>
+    
+    <footer><span>&copy; 2024 | </span> <span><a href="#">Soash</a></span></footer>
+
+    
+</body>
+</html>
