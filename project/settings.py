@@ -29,7 +29,7 @@ if PROJECT == 'development':
     DEBUG = True
     ALLOWED_HOSTS = []
 else:
-    DEBUG = False
+    DEBUG = True
     ALLOWED_HOSTS = ['*']
 
 
