@@ -6,7 +6,7 @@
     <title>Index</title>
     
     {% load static %}
-    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <link rel="stylesheet" href="{% static 'common.css' %}">
     <link rel="stylesheet" href="{% static 'quiz1.css' %}">
 </head>
 <body>
@@ -40,8 +40,8 @@
 
 
 <form action="{% url 'quiz1' %}" method="post"> {% csrf_token %}
-    <span><input type="number" name="code" min="1000" max="9999" placeholder="C O D E"> </span>
-    <span><button type="submit" class="button">Submit</button></span>
+    <input type="number" name="code" min="1000" max="9999" placeholder="C O D E">
+    <button type="submit" class="button button-green">Submit</button>
 </form>
 
 <div class="status">
@@ -49,7 +49,7 @@
         <span>Quiz 1: Unsolved</span>
     {% else %}
         <span>Quiz 1: Solved</span>
-        <a href="{% url 'quiz2' %}" class="button">Quiz 2</a>
+        <a href="{% url 'quiz2' %}" class="button button-red">Quiz 2</a>
     {% endif %}
 </div>
 
