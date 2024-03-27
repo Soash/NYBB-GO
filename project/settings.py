@@ -11,7 +11,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-from . import info
+from django.core.management.utils import get_random_secret_key
+from environ import Env
+
+env = Env()
+Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,13 +25,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = info.SECRET_KEY
+SECRET_KEY = get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-if info.PROJECT == 'development':
+PROJECT = env('PROJECT')
+if PROJECT == 'development':
     DEBUG = True
-    ALLOWED_HOSTS = ['*']
+    ALLOWED_HOSTS = []
 else:
     DEBUG = False
     ALLOWED_HOSTS = ['*']
@@ -127,7 +132,7 @@ STATIC_ROOT = BASE_DIR/'staticfiles'
 STATICFILES_DIRS = [BASE_DIR/'static']
 
 
-if info.PROJECT == 'development':
+if PROJECT == 'production':
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
