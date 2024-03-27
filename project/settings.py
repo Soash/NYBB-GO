@@ -130,6 +130,7 @@ USE_TZ = True
 if PROJECT == 'development':
     STATIC_URL = '/static/'
     STATICFILES_DIRS = [BASE_DIR/'static']
+    STATIC_ROOT = BASE_DIR/'staticfiles'
 else:
     STATIC_URL = '/static/'
     STATICFILES_DIRS = [BASE_DIR/'static']
