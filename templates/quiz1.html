@@ -19,20 +19,21 @@
         <span>Score: {{request.user.team.score}}</span>
     </div>
 
-    <div class="story">
-        In the year 3024, you, known as Soash, a Biotechnologist, received a distress call from the distant planet Luminescia. 
-        Their inhabitants were grappling with a crisis stemming from an autosomal recessive disorder. Dr. Victor Frost had been 
-        diligently working on this affliction, primarily affecting the neurological health of the populace. Unfortunately, tragedy 
-        struck as Dr. Victor untimely passed away due to unknown circumstances.
+    <div class="clue">
+        <div class="clue-1">
+            In the year 3024, you, known as Soash, a Biotechnologist, received a distress call from the distant planet Luminescia. 
+            Their inhabitants were grappling with a crisis stemming from an autosomal recessive disorder. Dr. Victor Frost had been 
+            diligently working on this affliction, primarily affecting the neurological health of the populace. Unfortunately, tragedy 
+            struck as Dr. Victor untimely passed away due to unknown circumstances.
 
-        You've been summoned to continue his crucial research, but there's a hurdle. His vital research data is locked within his
-        laptop, secured by a four-digit code. Before his demise, Dr. Victor left a cryptic clue, ensuring that only a worthy successor 
-        could carry on his work. The clue provided reads:
-    </div>
+            You've been summoned to continue his crucial research, but there's a hurdle. His vital research data is locked within his
+            laptop, secured by a four-digit code. Before his demise, Dr. Victor left a cryptic clue, ensuring that only a worthy successor 
+            could carry on his work. The clue provided reads:
+        </div>
 
-
-    <div class="clue-box">
-    <span>GAC AAT GCA GAC GCA TAT</span>
+        <div class="clue-2">
+            <span>GAC AAT GCA GAC GCA TAT</span>
+        </div>
     </div>
 
 <br>
@@ -51,6 +52,9 @@
         <a href="{% url 'quiz2' %}" class="button">Quiz 2</a>
     {% endif %}
 </div>
+
+
+<footer><span>&copy; 2024 | </span> <span><a href="#">Soash</a></span></footer>
 
 </body>
 </html>
