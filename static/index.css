@@ -39,15 +39,12 @@ h1, h2{
 
 
 .button {
-    background-color: #04AA6D; /* Green */
+    background-color: #04AA6D;
     border: none;
     color: white;
-    padding: 15px 30px;
+    padding: 10px 30px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    font-size: 15px;
-    margin: 4px 2px;
     cursor: pointer;
     width: 100px;
 }

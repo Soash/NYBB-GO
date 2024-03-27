@@ -38,7 +38,7 @@
 
 
 <form action="{% url 'quiz1' %}" method="post"> {% csrf_token %}
-    <input type="number" id="code" name="code" min="1000" max="9999" placeholder="C O D E"> 
+    <input type="text" name="geneL" placeholder="Gene Location"> 
     <button type="submit" class="button button-red">Submit</button>
 </form>
 

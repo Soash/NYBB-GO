@@ -40,8 +40,8 @@
 
 
 <form action="{% url 'quiz1' %}" method="post"> {% csrf_token %}
-    <input type="number" id="code" name="code" min="1000" max="9999" placeholder="C O D E"> 
-    <button type="submit" class="button button-red">Submit</button>
+    <span><input type="number" name="code" min="1000" max="9999" placeholder="C O D E"> </span>
+    <span><button type="submit" class="button">Submit</button></span>
 </form>
 
 <div class="status">
