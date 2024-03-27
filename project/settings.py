@@ -25,9 +25,12 @@ SECRET_KEY = info.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-
-DEBUG = False
-ALLOWED_HOSTS = ['*']
+if info.PROJECT == 'development':
+    DEBUG = True
+    ALLOWED_HOSTS = ['*']
+else:
+    DEBUG = False
+    ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -122,7 +125,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR/'staticfiles'
 STATICFILES_DIRS = [BASE_DIR/'static']
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+if info.PROJECT == 'development':
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR/'media'
