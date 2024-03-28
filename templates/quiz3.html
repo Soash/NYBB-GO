@@ -37,17 +37,17 @@
 <br>
 
 
-<form action="{% url 'quiz2' %}" method="post"> {% csrf_token %}
+<form action="{% url 'quiz1' %}" method="post"> {% csrf_token %}
     <input type="text" name="geneL" placeholder="Gene Location"> 
-    <button type="submit" class="button button-green">Submit</button>
+    <button type="submit" class="button button-red">Submit</button>
 </form>
 
 <div class="status">
     {% if request.user.team.quiz_2_status == False %}
         <span>Quiz 2: Unsolved</span>
     {% else %}
-        <span>Quiz 2: Solved</span>
-        <a href="{% url 'quiz3' %}" class="button button-red">Quiz 3</a>
+        <span>Quiz 1: Solved</span>
+        <a href="{% url 'quiz2' %}" class="button">Quiz 2</a>
     {% endif %}
 </div>
 
