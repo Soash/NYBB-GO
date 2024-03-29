@@ -13,7 +13,7 @@
     <a href="{% url 'index' %}">
         <img src="https://i.ibb.co/7SwXPgX/nybbt.jpg" alt="NYBB Logo" class="logo">
     </a>
-
+    <h1>Genetic Odyssey</h1>
     <div class="score-board">
         <span>{{request.user}}</span>
         <span>Score: {{request.user.team.score}}</span>
@@ -21,33 +21,47 @@
 
     <div class="clue">
         <div class="clue-1">
-            Unlocking the Laptop a folder called MindCircuit contains some note. The note contains some information. 
-            “My findings are this disease is due to some mutation in a gene located in a autosome. It is a inherited 
-            disorder but somehow people of Luminescia getting induced by the mutation and it is spreading to next generation.
-            You have come this far it your duty to find out what is the reason and Find a cure for the people of Luminescia. I've 
-            fear someone is trying to stop our research. I've backuped my research into severals clues. You need to go through 
-            the problems. Find the location of the gene. I hope you can cure my people. Good bye.
-        </div>
+            Now that we know the disease is caused by mutations in the PAH gene, 
+            resulting in Phenylalanine Hydroxylase deficiency, leading to the accumulation 
+            of Phenylalanine in the body, we need to produce and supply it to the body. This will be 
+            done using recombinant DNA technology, utilizing bacteria for the production process. 
+            Bacteria can be found in the following locations:
 
-        <div class="clue-2">
-            <span><a href="https://drive.google.com/file/d/1oqq1tqI-d6YICBI6dArz4BT-05aI0Kun">unknown.txt</a></span>
+            <div>
+            <br>
+            Location 1: <br>
+                In a quiet realm, where whispers roam,<br>
+                Pages whisper secrets, a silent tome.<br>
+                Seek me where knowledge finds its home,<br>
+                In halls where thoughts and dreams have flown.<br>
+                <br>
+            Location 2:<br>
+                With flag held high and book in hand,<br>
+                Two students brave take their stand.<br>
+                A symbol of hope, a nation's plea,<br>
+                What war memorial stands tall and free?<br>
+            </div>
+
+            <p>
+                Hint: Unlock Key is the Word Value of bacteria
+            </p>
         </div>
     </div>
 
 <br>
 
 
-<form action="{% url 'quiz1' %}" method="post"> {% csrf_token %}
-    <input type="text" name="geneL" placeholder="Gene Location"> 
+<form action="{% url 'quiz3' %}" method="post"> {% csrf_token %}
+    <input type="text" name="UnlockKey" placeholder="Unlock Key"> 
     <button type="submit" class="button button-red">Submit</button>
 </form>
 
 <div class="status">
-    {% if request.user.team.quiz_2_status == False %}
-        <span>Quiz 2: Unsolved</span>
+    {% if request.user.team.quiz_3_status == False %}
+        <span>Quiz 3: Unsolved</span>
     {% else %}
-        <span>Quiz 1: Solved</span>
-        <a href="{% url 'quiz2' %}" class="button">Quiz 2</a>
+        <span>Quiz 3: Solved</span>
+        <a href="{% url 'quiz4' %}" class="button button-green">Quiz 4</a>
     {% endif %}
 </div>
 

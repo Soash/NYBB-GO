@@ -54,21 +54,39 @@ def custom_404_page(request, exception):
 
 @login_required
 def quiz3(request):
-    if request.user.is_authenticated:
-        if request.user.team.quiz_2_status == True:
-            if request.method == 'POST':
-                submitted_code = request.POST.get('geneL')
-                if submitted_code == '12q23.2':
-                    if hasattr(request.user, 'team'):
-                        team = request.user.team
-                        if team.quiz_2_status == False:
-                            team.score += 100
-                        team.quiz_2_status = True
-                        team.save() 
-                        # return redirect('quiz3')
-            return render(request, 'quiz3.html')
-    else:
-        return redirect(quiz2)
+    if request.user.is_authenticated and request.user.team.quiz_2_status == True:
+        if request.method == 'POST':
+            submitted_code = request.POST.get('UnlockKey')
+            if submitted_code == '439':
+                if hasattr(request.user, 'team'):
+                    team = request.user.team
+                    if team.quiz_3_status == False:
+                        team.score += 100
+                    team.quiz_3_status = True
+                    team.save()
+
+        return render(request, 'quiz3.html')
+    
+    return redirect(quiz2)
+
+def quiz3_1(request):
+    return render(request, 'quiz3_1.html')
+
+def quiz4(request):
+    return render(request, 'quiz4.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def custom_404_page(request, exception):
     return render(request, '404.html', status=404)
