@@ -8,6 +8,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'common.css' %}">
     <link rel="stylesheet" href="{% static 'index.css' %}">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
  
 </head>
 <body>
@@ -34,6 +35,7 @@
 
     <div class="div-1">
         <a href="{% url 'quiz1' %}" class="button button-green">Quiz 1</a>
+        <a href="{% url 'signin' %}" class="button button-red">Sign In</a>
         <a href="{% url 'signout' %}" class="button button-red">Sign Out</a>
     </div>
 

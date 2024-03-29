@@ -95,19 +95,20 @@ def update_score(request):
 def custom_404_page(request, exception):
     return render(request, '404.html', status=404)
 
+
 def signin(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        pass1 = request.POST['pass1']
-        user = authenticate(username=username, password=pass1)
+        username = request.POST.get('username')
+        password = request.POST.get('pass')
+        user = authenticate(username=username, password=password)
         
         if user is not None:
             login(request, user)
             return redirect('index')
         else:
-            return redirect('signin')
-    else:
-        return render(request, 'signin.html')
+            return render(request, 'signin.html', {'error_message': 'Invalid username or password!'})
+
+    return render(request, 'signin.html')
 
 def signout(request):
     logout(request)

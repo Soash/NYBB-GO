@@ -95,6 +95,29 @@
             gameModal.querySelector("h4").innerText = isVictory ? 'Congrats!' : 'Game Over!';
             gameModal.classList.add("show");
             
+            if (!isVictory) {
+                // Make a request to update the user's score if they lost
+                fetch('{% url 'update_score' %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'), // Include the CSRF token
+                    },
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to update score');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle successful score update if needed
+                })
+                .catch(error => {
+                    console.error('Error updating score:', error);
+                });
+            }
+            
             if (isVictory) {
                 playAgainBtn.style.display = "none";
                 document.querySelector(".click-me").style.display = "inline-block";
@@ -160,7 +183,23 @@
             window.location.reload();
         });
         
-
+        // Function to get CSRF token from cookie
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Check if the cookie name matches the CSRF cookie name
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        
     </script>
     
 
