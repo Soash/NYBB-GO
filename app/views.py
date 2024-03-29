@@ -15,42 +15,36 @@ def index(request):
 @login_required
 def quiz1(request):
     if request.method == 'POST':
-        # Retrieve the submitted code from the form
         submitted_code = request.POST.get('code')
-        # Check if the submitted code matches the specified value (2504)
         if submitted_code == '2504':
-            # Update the quiz_1_status to True
             if hasattr(request.user, 'team'):  # Check if the user has an associated team
-                team = request.user.team  # Access the associated team
+                team = request.user.team
                 if team.quiz_1_status == False:
                     team.score += 100 
                 team.quiz_1_status = True
                 team.save() 
-                return redirect('quiz2')
 
-    # Render the quiz1 page if no POST request or incorrect code submitted
     return render(request, 'quiz1.html')
 
 
-def quiz2(request):
-    if request.user.is_authenticated:
-        if request.user.team.quiz_1_status == True:
-            if request.method == 'POST':
-                submitted_code = request.POST.get('geneL')
-                if submitted_code == '12q23.2':
-                    if hasattr(request.user, 'team'):
-                        team = request.user.team
-                        if team.quiz_2_status == False:
-                            team.score += 100 
-                        team.quiz_2_status = True
-                        team.save() 
-                        return redirect('quiz3')
-            return render(request, 'quiz2.html')
-    else:
-        return redirect(quiz1)
 
-def custom_404_page(request, exception):
-    return render(request, '404.html', status=404)
+def quiz2(request):
+    if request.user.is_authenticated and request.user.team.quiz_1_status == True:
+        if request.method == 'POST':
+            submitted_code = request.POST.get('geneL')
+            if submitted_code == '12q23.2':
+                if hasattr(request.user, 'team'):
+                    team = request.user.team
+                    if team.quiz_2_status == False:
+                        team.score += 100 
+                    team.quiz_2_status = True
+                    team.save() 
+
+        return render(request, 'quiz2.html')
+  
+    return redirect(quiz1)
+
+
 
 @login_required
 def quiz3(request):
@@ -68,6 +62,9 @@ def quiz3(request):
         return render(request, 'quiz3.html')
     
     return redirect(quiz2)
+
+
+
 
 def quiz3_1(request):
     return render(request, 'quiz3_1.html')

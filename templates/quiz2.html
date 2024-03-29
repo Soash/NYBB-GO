@@ -3,16 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title>Quiz 2</title>
     
     {% load static %}
     <link rel="stylesheet" href="{% static 'common.css' %}">
     <link rel="stylesheet" href="{% static 'quiz2.css' %}">
+    <style>
+        .clue-2 a{
+            text-decoration: none;
+        }        
+    </style>
 </head>
 <body>
     <a href="{% url 'index' %}">
         <img src="https://i.ibb.co/7SwXPgX/nybbt.jpg" alt="NYBB Logo" class="logo">
     </a>
+    <h1>Genetic Odyssey</h1>
 
     <div class="score-board">
         <span>{{request.user}}</span>
