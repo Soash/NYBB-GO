@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
@@ -73,9 +74,15 @@ def quiz4(request):
     return render(request, 'quiz4.html')
 
 
-
-
-
+def update_score(request):
+    team = request.user.team
+    team.score -= 10
+    team.save()
+    # Your logic to update the user's score goes here
+    # For example, you can access the user's score from request.user.team.score
+    
+    # Return a JSON response indicating success or failure
+    return JsonResponse({'status': 'success'})
 
 
 

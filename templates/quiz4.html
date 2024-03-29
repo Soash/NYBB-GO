@@ -8,34 +8,52 @@
 
     {% load static %}
 
+    
     <link rel="stylesheet" href="{% static 'quiz4.css' %}">
-
-
-    <script src="{% static 'quiz4.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'common.css' %}">
     <script src="{% static 'word-list.js' %}"></script>
+
+    <style>
+         h1{margin: 20px;}
+        .score-board span{box-sizing:content-box;}
+
+    </style>
 </head>
 <body>
+    <a href="{% url 'index' %}">
+        <img src="https://i.ibb.co/7SwXPgX/nybbt.jpg" alt="NYBB Logo" class="logo">
+    </a>
+    <h1>Genetic Odyssey</h1>
+
+    <div class="score-board">
+        <span>{{request.user}}</span>
+        <span>Score: {{request.user.team.score}}</span>
+    </div>
+
     <div class="game-modal">
         <div class="content">
             <img src="#" alt="gif">
             <h4>Game Over!</h4> <br>
-            <button class="play-again">Play Again</button>
+            <button class="play-again">Play Again</button><br>
+            <button onclick="window.location.href=`{% url 'index' %}`" class="play-again click-me">Click Me</button>
         </div>
     </div>
-    <div class="container">
-        <div class="hangman-box">
-            <img src="#" draggable="false" alt="hangman-img">
-            <h1>Hangman Game</h1>
-        </div>
-        <div class="game-box">
-            <ul class="word-display"></ul>
-            <h4 class="hint-text">Hint: <b></b></h4>
-            <h4 class="guesses-text">Incorrect guesses: <b></b></h4>
-            <div class="keyboard"></div>
+    <div style="display: flex; justify-content: center;">
+        <div class="container">
+            <div class="hangman-box">
+                <img src="#" draggable="false" alt="hangman-img">
+                <h1>Hangman Game</h1>
+            </div>
+            <div class="game-box">
+                <ul class="word-display"></ul>
+                <h4 class="hint-text">Hint: <b></b></h4>
+                <h4 class="guesses-text">Incorrect guesses: <b></b></h4>
+                <div class="keyboard"></div>
+            </div>
         </div>
     </div>
 
-
+    <footer><span>&copy; 2024 | </span> <span><a href="#">NYBB - SUST</a></span></footer>
 
 
     <script>
@@ -45,51 +63,79 @@
         const hangmanImage = document.querySelector(".hangman-box img");
         const gameModal = document.querySelector(".game-modal");
         const playAgainBtn = gameModal.querySelector("button");
-        
+    
         // Initializing game variables
-        let currentWord, correctLetters, wrongGuessCount;
+        let currentWordIndex = 0;
+        let correctLetters, wrongGuessCount;
         const maxGuesses = 6;
-        
+    
         const resetGame = () => {
             // Ressetting game variables and UI elements
+            
             correctLetters = [];
             wrongGuessCount = 0;
             hangmanImage.src = "images/hangman-0.svg";
             hangmanImage.src = "{% static 'images/hangman-0.svg' %}";
             guessesText.innerText = `${wrongGuessCount} / ${maxGuesses}`;
-            wordDisplay.innerHTML = currentWord.split("").map(() => `<li class="letter"></li>`).join("");
+            const currentWord = wordList[currentWordIndex];
+            wordDisplay.innerHTML = currentWord.word.split("").map(() => `<li class="letter"></li>`).join("");
+            document.querySelector(".hint-text b").innerText = currentWord.hint;
             keyboardDiv.querySelectorAll("button").forEach(btn => btn.disabled = false);
             gameModal.classList.remove("show");
         }
-        
-        const getRandomWord = () => {
-            // Selecting a random word and hint from the wordList
-            const { word, hint } = wordList[Math.floor(Math.random() * wordList.length)];
-            currentWord = word; // Making currentWord as random word
-            document.querySelector(".hint-text b").innerText = hint;
-            resetGame();
-        }
-        
+    
         const victoryImageURL = "{% static 'images/victory.gif' %}";
         const lostImageURL = "{% static 'images/lost.gif' %}";
-
+    
         const gameOver = (isVictory) => {
             // After game complete.. showing modal with relevant details
-            const modalText = isVictory ? 'You found the word:' : 'The correct word was:';
+            // const modalText = isVictory ? 'You found the word:' : 'The correct word was:';
             gameModal.querySelector("img").src = isVictory ? victoryImageURL : lostImageURL;
             gameModal.querySelector("h4").innerText = isVictory ? 'Congrats!' : 'Game Over!';
-            {% comment %} 
-            gameModal.querySelector("p").innerHTML = `${modalText} <b>${currentWord}</b>`; 
-            {% endcomment %}
             gameModal.classList.add("show");
+            
+            if (!isVictory) {
+                // Make a request to update the user's score if they lost
+                fetch('{% url 'update_score' %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'), // Include the CSRF token
+                    },
+                    body: JSON.stringify({
+                        scoreChange: -1, // Decrease the score by 1
+                    }),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to update score');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle successful score update if needed
+                })
+                .catch(error => {
+                    console.error('Error updating score:', error);
+                });
+            }
+            
+            if (isVictory) {
+                playAgainBtn.style.display = "none";
+                document.querySelector(".click-me").style.display = "inline-block";
+            } else {
+                playAgainBtn.style.display = "inline-block";
+                document.querySelector(".click-me").style.display = "none";
+            }
         }
-        
+    
         const initGame = (button, clickedLetter) => {
             // Checking if clickedLetter is exist on the currentWord
-            if(currentWord.includes(clickedLetter)) {
+            const currentWord = wordList[currentWordIndex];
+            if (currentWord.word.includes(clickedLetter)) {
                 // Showing all correct letters on the word display
-                [...currentWord].forEach((letter, index) => {
-                    if(letter === clickedLetter) {
+                [...currentWord.word].forEach((letter, index) => {
+                    if (letter === clickedLetter) {
                         correctLetters.push(letter);
                         wordDisplay.querySelectorAll("li")[index].innerText = letter;
                         wordDisplay.querySelectorAll("li")[index].classList.add("guessed");
@@ -103,12 +149,19 @@
             }
             button.disabled = true; // Disabling the clicked button so user can't click again
             guessesText.innerText = `${wrongGuessCount} / ${maxGuesses}`;
-        
+    
             // Calling gameOver function if any of these condition meets
-            if(wrongGuessCount === maxGuesses) return gameOver(false);
-            if(correctLetters.length === currentWord.length) return gameOver(true);
+            if (wrongGuessCount === maxGuesses) return gameOver(false);
+            if (correctLetters.length === currentWord.word.length) {
+                currentWordIndex++;
+                if (currentWordIndex < wordList.length) {
+                    resetGame();
+                } else {
+                    return gameOver(true);
+                }
+            }
         }
-        
+    
         // Creating keyboard buttons and adding event listeners
         for (let i = 97; i <= 122; i++) {
             const button = document.createElement("button");
@@ -116,10 +169,45 @@
             keyboardDiv.appendChild(button);
             button.addEventListener("click", (e) => initGame(e.target, String.fromCharCode(i)));
         }
-        
-        getRandomWord();
-        playAgainBtn.addEventListener("click", getRandomWord);
 
+        for (let i = 48; i <= 57; i++) {
+            const button = document.createElement("button");
+            button.innerText = String.fromCharCode(i);
+            keyboardDiv.appendChild(button);
+            button.addEventListener("click", (e) => initGame(e.target, String.fromCharCode(i)));
+        }
+
+    
+        resetGame();
+        playAgainBtn.addEventListener("click", () => {
+            currentWordIndex = 0;
+            resetGame();
+            window.location.reload();
+        });
+        
+        // Function to get CSRF token from cookie
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Check if the cookie name matches the CSRF cookie name
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
     </script>
+    
+
+
+
+
+
+
 </body>
 </html>
