@@ -89,8 +89,6 @@
         const lostImageURL = "{% static 'images/lost.gif' %}";
     
         const gameOver = (isVictory) => {
-            // After game complete.. showing modal with relevant details
-            // const modalText = isVictory ? 'You found the word:' : 'The correct word was:';
             gameModal.querySelector("img").src = isVictory ? victoryImageURL : lostImageURL;
             gameModal.querySelector("h4").innerText = isVictory ? 'Congrats!' : 'Game Over!';
             gameModal.classList.add("show");
@@ -144,7 +142,6 @@
             keyboardDiv.appendChild(button);
             button.addEventListener("click", (e) => initGame(e.target, String.fromCharCode(i)));
         }
-
         for (let i = 48; i <= 57; i++) {
             const button = document.createElement("button");
             button.innerText = String.fromCharCode(i);
