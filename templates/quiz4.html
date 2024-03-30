@@ -56,7 +56,7 @@
 
     <footer><span>&copy; 2024 | </span> <span><a href="#">NYBB - SUST</a></span></footer>
 
-{% comment %} 
+
     <script>
         const wordDisplay = document.querySelector(".word-display");
         const guessesText = document.querySelector(".guesses-text b");
@@ -70,7 +70,7 @@
         let correctLetters, wrongGuessCount;
         const maxGuesses = 6;
     
-        const resetGame = () => {
+        {% comment %} const resetGame = () => {
             // Ressetting game variables and UI elements
             
             correctLetters = [];
@@ -83,7 +83,7 @@
             document.querySelector(".hint-text b").innerText = currentWord.hint;
             keyboardDiv.querySelectorAll("button").forEach(btn => btn.disabled = false);
             gameModal.classList.remove("show");
-        }
+        } {% endcomment %}
     
         const victoryImageURL = "{% static 'images/victory.gif' %}";
         const lostImageURL = "{% static 'images/lost.gif' %}";
@@ -159,7 +159,7 @@
         
 
     </script>
-     {% endcomment %}
+  
 
 
 
