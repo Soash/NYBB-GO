@@ -66,6 +66,9 @@ def quiz3(request):
 
 
 def quiz4(request):
+    team = request.user.team
+    team.score -= 1
+    team.save()
     return render(request, 'quiz4.html')
 
 
