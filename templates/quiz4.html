@@ -57,9 +57,6 @@
 
 
   <script>
-    console.log('ok')
-
-
         // Define the URLs for images using Django template syntax
         const hangmanImageURLs = [
             "{% static 'images/hangman-0.svg' %}",
@@ -101,8 +98,36 @@
         const lostImageURL = "{% static 'images/lost.gif' %}";
     
         const gameOver = (isVictory) => {
-            gameModal.querySelector("img").src = isVictory ? victoryImageURL : lostImageURL;
-            gameModal.querySelector("h4").innerText = isVictory ? 'Congrats!' : 'Game Over!';
+            if (isVictory) {
+                gameModal.querySelector("img").src = victoryImageURL;
+                gameModal.querySelector("h4").innerText = 'Congrats!';
+            } else {
+                gameModal.querySelector("img").src = lostImageURL;
+                gameModal.querySelector("h4").innerText = 'Game Over!';
+                // Decrease the score by 10
+                const scoreElement = document.querySelector('.score-board span:nth-child(2)');
+                const currentScore = parseInt(scoreElement.innerText.split(': ')[1]);
+                const newScore = currentScore - 10;
+                scoreElement.innerText = `Score: ${newScore}`;
+                // Update the score on the server
+                fetch('update_score', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({ newScore: newScore })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to decrease score');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Handle error here
+                });
+            }
             gameModal.classList.add("show");
             
             if (isVictory) {
@@ -113,6 +138,7 @@
                 document.querySelector(".click-me").style.display = "none";
             }
         };
+        
     
         const initGame = (button, clickedLetter) => {
             // Checking if clickedLetter exists in the currentWord
