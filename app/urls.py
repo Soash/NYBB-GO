@@ -9,7 +9,6 @@ urlpatterns = [
     path('quiz3', views.quiz3, name='quiz3'),
     path('quiz4', views.quiz4, name='quiz4'),
     path('update_score', views.update_score, name='update_score'),
-    path('quiz3-1', views.quiz3_1, name='quiz3_1'),
     path('signin/', views.signin, name='signin'),
     path('signout/', views.signout, name='signout'),
 ]

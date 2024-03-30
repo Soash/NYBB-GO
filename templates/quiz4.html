@@ -138,7 +138,6 @@
                 document.querySelector(".click-me").style.display = "none";
             }
         };
-        
     
         const initGame = (button, clickedLetter) => {
             // Checking if clickedLetter exists in the currentWord
@@ -185,14 +184,13 @@
             keyboardDiv.appendChild(button);
             button.addEventListener("click", (e) => initGame(e.target, String.fromCharCode(i)));
         }
-    
-        resetGame(); // Initialize the game
+
+        // Initialize the game
+        resetGame(); 
         playAgainBtn.addEventListener("click", () => {
             currentWordIndex = 0;
             resetGame();
-            window.location.reload(); // Reload the page to play again
-        });
-    
+        }); 
   </script>
 
 </body>

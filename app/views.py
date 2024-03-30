@@ -65,11 +65,6 @@ def quiz3(request):
     return redirect(quiz2)
 
 
-
-
-def quiz3_1(request):
-    return render(request, 'quiz3_1.html')
-
 def quiz4(request):
     return render(request, 'quiz4.html')
 
