@@ -26,6 +26,15 @@
         <span>Score: {{request.user.team.score}}</span>
     </div>
 
+    <div class="clue" style="margin: 20px;">
+        <div class="clue-1">
+            <b>Warning:</b> The culprits are attempting to deceive you with a dirty trick. 
+            They've arranged a Hangman game setup. Upon entering, your score is immediately decreased by 5. 
+            Reloading the page will result in a further deduction of 10 points. 
+            Failing to answer any of the six questions will result in a person's death, necessitating a restart.
+            Will you outsmart the traps laid before you and continue your quest unscathed?
+        </div>
+    </div>
     <div class="game-modal">
         <div class="content">
             <img src="#" alt="gif">
@@ -33,7 +42,7 @@
             <button class="play-again">Play Again</button><br>
 
             <form action="{% url 'quiz4' %}" method="post" class="click-me"> {% csrf_token %}
-                <input type="text" name="UnlockKey" placeholder="Unlock Key: 6666"> 
+                <input type="text" name="UnlockKey" placeholder="Unlock Key: 1953"> 
                 <button type="submit" class="button button-red">Submit</button>
             </form>
         </div>
@@ -140,7 +149,7 @@
             
             if (isVictory) {
                 playAgainBtn.style.display = "none";
-                document.querySelector(".click-me").style.display = "inline-block";
+                document.querySelector(".click-me").style.display = "flex";
             } else {
                 playAgainBtn.style.display = "inline-block";
                 document.querySelector(".click-me").style.display = "none";

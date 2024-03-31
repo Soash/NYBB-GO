@@ -67,6 +67,9 @@
             {% if request.user.team.quiz_5_status == True %}
                 <a href="{% url 'quiz5' %}" class="button button-green">Issue 5: <br> Solved</a>{% else %}
                 <a href="{% url 'quiz5' %}" class="button button-red">Issue 5: Unsolved</a>{% endif %}
+            {% if request.user.team.quiz_6_status == True %}
+                <a href="{% url 'quiz6' %}" class="button button-green">Issue 6: <br> Solved</a>{% else %}
+                <a href="{% url 'quiz6' %}" class="button button-red">Issue 6: Unsolved</a>{% endif %}
         </div>
         <div class="div-1">
             <a href="{% url 'signin' %}" class="button button-blue">Sign In</a>

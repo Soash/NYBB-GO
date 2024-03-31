@@ -85,7 +85,7 @@ def quiz4(request):
     if request.user.team.quiz_3_status == True:
         if request.method == 'POST':
             submitted_code = request.POST.get('UnlockKey')
-            if submitted_code == '6666':
+            if submitted_code == '1953':
                 if hasattr(request.user, 'team'):
                     team = request.user.team
                     if team.quiz_4_status == False:
@@ -115,12 +115,36 @@ def quiz5(request):
                         team.score += 100
                     team.quiz_5_status = True
                     team.save()
-                    return redirect(index)
+                    return redirect('quiz6')
         return render(request, 'quiz5.html')
     
     return redirect('quiz4')
 
+@login_required
+def quiz6(request):
+    if request.user.team.quiz_5_status == True:
+        if request.method == 'POST':
+            submitted_code = request.POST.get('UnlockKey')
+            if submitted_code == '2':
+                if hasattr(request.user, 'team'):
+                    team = request.user.team
+                    if team.quiz_6_status == False:
+                        team.score += 100
+                    team.quiz_6_status = True
+                    team.save()
+                    return redirect('index')
+        return render(request, 'quiz6.html')
+    
+    return redirect('quiz5')
 
+
+
+@login_required
+def congrats(request):
+    if request.user.team.quiz_6_status == True:
+        return render(request, 'congrats.html')
+    
+    return redirect('quiz6')
 
 def update_score(request):
     if request.method == 'POST':

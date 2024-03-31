@@ -19,6 +19,7 @@
         .center img {
             width: 30%; 
             border-radius: 10px;
+            margin-top: 20px;
         }
         .cw-clue{
             display: flex;
@@ -47,6 +48,11 @@
     </div>
 
     <div class="clue">
+        <div class=clue-1>
+            As you delve deeper into the research, a pressing realization dawns upon you - the people of Luminescia need more than just a 
+            temporary fix. They require a permanent solution, one that gene therapy might provide. 
+            Your next task: procure a crucial material for this groundbreaking endeavor.
+        </div>
         <div class="clue-1" style="text-align: left;">
             <div class="center">
                 <img src="{% static 'cw.png' %}">
@@ -90,10 +96,10 @@
 
     <div class="status">
         {% if request.user.team.quiz_5_status == False %}
-            <span>Quiz 5: Unsolved</span>
+            <span>Issue 5: Unsolved</span>
         {% else %}
-            <span>Quiz 5: Solved</span>
-            <a href="{% url 'index' %}" class="button button-green">Quiz 6</a>
+            <span>Issue 5: Solved</span>
+            <a href="{% url 'quiz6' %}" class="button button-green">Issue 6</a>
         {% endif %}
     </div>
 
