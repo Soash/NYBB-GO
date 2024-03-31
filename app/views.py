@@ -3,20 +3,22 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse
 from .models import Team
 
+
+
+@login_required
 def index(request):
-    if request.user.is_authenticated:
-        teams = Team.objects.all()
-        return render(request, 'index.html', {'teams': teams})
-    else:
-        return redirect('signin')
+    teams = Team.objects.all()
+    return render(request, 'index.html', {'teams': teams})
+
 
 
 @login_required
 def quiz1(request):
     if request.method == 'POST':
-        submitted_code = request.POST.get('code')
+        submitted_code = request.POST.get('UnlockKey')
         if submitted_code == '2504':
             if hasattr(request.user, 'team'):
                 team = request.user.team
@@ -24,16 +26,18 @@ def quiz1(request):
                     team.score += 100 
                 team.quiz_1_status = True
                 team.save()
-                return redirect(quiz2) 
-
+                return redirect(quiz2)
+        else:
+            return render(request, 'quiz3.html', {'error_message': 'Incorrect code entered!'})
     return render(request, 'quiz1.html')
 
 
 
+@login_required
 def quiz2(request):
     if request.user.team.quiz_1_status == True:
         if request.method == 'POST':
-            submitted_code = request.POST.get('geneL')
+            submitted_code = request.POST.get('UnlockKey')
             if submitted_code == '12q23.2':
                 if hasattr(request.user, 'team'):
                     team = request.user.team
@@ -42,10 +46,12 @@ def quiz2(request):
                     team.quiz_2_status = True
                     team.save()
                     return redirect(quiz3) 
-
+            else:
+                return render(request, 'quiz2.html', {'error_message': 'Incorrect code entered!'})
+            
         return render(request, 'quiz2.html')
   
-    return redirect(quiz1)
+    return redirect('quiz1')
 
 
 
@@ -62,10 +68,14 @@ def quiz3(request):
                     team.quiz_3_status = True
                     team.save()
                     return redirect(quiz4)
+            else:
+                return render(request, 'quiz3.html', {'error_message': 'Incorrect code entered!'})
 
         return render(request, 'quiz3.html')
     
-    return redirect(quiz2)
+    return redirect('quiz2')
+
+
 
 @login_required
 def quiz4(request):
@@ -86,7 +96,9 @@ def quiz4(request):
         team.save()
         return render(request, 'quiz4.html')
     
-    return redirect(quiz3)
+    return redirect('quiz3')
+
+
 
 @login_required
 def quiz5(request):
@@ -103,7 +115,8 @@ def quiz5(request):
                     return redirect(index)
         return render(request, 'quiz5.html')
     
-    return redirect(quiz4)
+    return redirect('quiz4')
+
 
 
 def update_score(request):
@@ -114,14 +127,9 @@ def update_score(request):
 
 
 
-
-
-
-
-
-
 def custom_404_page(request, exception):
     return render(request, '404.html', status=404)
+
 
 
 def signin(request):
@@ -138,6 +146,8 @@ def signin(request):
 
     return render(request, 'signin.html')
 
+
+
 def signout(request):
     logout(request)
-    return redirect('index')
+    return redirect('signin')

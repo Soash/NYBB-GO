@@ -3,25 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz 3</title>
+
+    <title>Issue 5</title>
     
     {% load static %}
     <link rel="stylesheet" href="{% static 'common.css' %}">
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
-
     <style>
-        ol{
-            list-style-type: none;
-            margin-top: 5px;
-            margin-left: -5px;
+        td{
+            vertical-align: text-top;
         }
+        td:first-child {
+            text-align: center;
+          }
+        .center img {
+            width: 30%; 
+            border-radius: 10px;
+        }
+        .cw-clue{
+            display: flex;
+            justify-content: space-around;
+            margin-top: 25px;
+        }
+        @media only screen and (max-width: 767px) {
+            .center img {
+                width: 100%;
+            }
+            .cw-clue{
+                flex-direction: column;
+                gap: 20px;
+            }
+        }        
     </style>
 </head>
 <body>
-    <a href="{% url 'index' %}">
-        <img src="https://i.ibb.co/7SwXPgX/nybbt.jpg" alt="NYBB Logo" class="logo">
-    </a>
+    <a href="{% url 'index' %}"><img src="https://i.ibb.co/7SwXPgX/nybbt.jpg" alt="NYBB Logo" class="logo"></a>
     <h1>Genetic Odyssey</h1>
+    <h2>Issue 5</h2>
 
     <div class="score-board">
         <span>{{request.user}}</span>
@@ -29,55 +47,59 @@
     </div>
 
     <div class="clue">
-        <div class="clue-1">
+        <div class="clue-1" style="text-align: left;">
             <div class="center">
-                <img src="{% static 'cw.png' %}" style="width: 30%; border-radius: 10px;">
+                <img src="{% static 'cw.png' %}">
             </div>
-                <span>Across:</span>
-                <ol>
-                  <li>1. Replicates only inside the living cells (5)</li>
-                  <li>2. Initial stage of development for multicellular organism (6)</li>
-                  <li>3. Basic building block of regenerative medicine (8)</li>
-                  <li>4. Process of copying genetic information from DNA to RNA (13)</li>
-                  <li>5. Functional unit of genetic regulation found in prokaryotic cells (6)</li>
-                  <li>6. Nucleic acid essential for protein synthesis (3)</li>
-                  
-                </ol>
-                <span>Down:</span>
-                <ol>
-                  <li>7. Cellular organelle where protein synthesis occurs (8)</li>
-                  <li>8. Genetic makeup determining individual characteristics (8)</li>
-                  <li>9. Enzyme breaking down proteins into amino acids (9)</li>
-                  <li>10. A specific characteristic of an individual (5)</li>
-                  <li>11. Unicellular organism (8)</li>
-                  <li>12. Technique amplifying specific DNA segments (3)</li>
-                </ol>
 
-                <p>
-                    Unlock Key: Can be found in prokaryotes.
-                </p>
+            <div class="cw-clue">
+                <div>
+                    <b>Across:</b>
+                    <table>
+                        <tr><td>1.</td><td>Replicates only inside the living cells</td></tr>
+                        <tr><td>2.</td><td>Initial stage of development for multicellular organism</td></tr>
+                        <tr><td>3.</td><td>Basic building block of regenerative medicine</td></tr>
+                        <tr><td>4.</td><td>Process of copying genetic information from DNA to RNA</td></tr>
+                        <tr><td>5.</td><td>Functional unit of genetic regulation found in prokaryotic cells</td></tr>
+                        <tr><td>6.</td><td>Nucleic acid essential for protein synthesis</td></tr>
+                    </table>
+                </div>
+                <div>              
+                    <b>Down:</b>
+                    <table>
+                        <tr><td>7.</td><td>Cellular organelle where protein synthesis occurs</td></tr>
+                        <tr><td>8.</td><td>Genetic makeup determining individual characteristics</td></tr>
+                        <tr><td>9.</td><td>Enzyme breaking down proteins into amino acids</td></tr>
+                        <tr><td>10.</td><td>A specific characteristic of an individual</td></tr>
+                        <tr><td>11.</td><td>Unicellular organism</td></tr>
+                        <tr><td>12.</td><td>Technique amplifying specific DNA segments</td></tr>
+                    </table>
+                </div>
+            </div>
+
         </div>
+        <div class="clue-2">
+            <span>Unlock Key: Can be found in prokaryotes.</span>
+        </div>
+    </div><br>
+
+    <form action="{% url 'quiz5' %}" method="post"> {% csrf_token %}
+        <input type="text" name="UnlockKey" placeholder="Unlock Key"> 
+        <button type="submit" class="button button-red">Submit</button>
+    </form>
+
+    <div class="status">
+        {% if request.user.team.quiz_5_status == False %}
+            <span>Quiz 5: Unsolved</span>
+        {% else %}
+            <span>Quiz 5: Solved</span>
+            <a href="{% url 'index' %}" class="button button-green">Quiz 6</a>
+        {% endif %}
     </div>
 
-<br>
-
-
-<form action="{% url 'quiz5' %}" method="post"> {% csrf_token %}
-    <input type="text" name="UnlockKey" placeholder="Unlock Key"> 
-    <button type="submit" class="button button-red">Submit</button>
-</form>
-
-<div class="status">
-    {% if request.user.team.quiz_5_status == False %}
-        <span>Quiz 5: Unsolved</span>
-    {% else %}
-        <span>Quiz 5: Solved</span>
-        <a href="{% url 'index' %}" class="button button-green">Quiz 6</a>
-    {% endif %}
-</div>
-
-
-<footer><span>&copy; 2024 | </span> <span><a href="#">NYBB - SUST</a></span></footer>
-
+    <footer><span>&copy; 2024 | </span> <span><a href="#">NYBB - SUST</a></span></footer>
 </body>
 </html>
+
+
+

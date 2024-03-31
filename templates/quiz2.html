@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz 2</title>
+
+    <title>Issue 2</title>
     
     {% load static %}
     <link rel="stylesheet" href="{% static 'common.css' %}">
@@ -15,10 +16,16 @@
     </style>
 </head>
 <body>
-    <a href="{% url 'index' %}">
-        <img src="https://i.ibb.co/7SwXPgX/nybbt.jpg" alt="NYBB Logo" class="logo">
-    </a>
+    <a href="{% url 'index' %}"><img src="https://i.ibb.co/7SwXPgX/nybbt.jpg" alt="NYBB Logo" class="logo"></a>
     <h1>Genetic Odyssey</h1>
+    <h2>Issue 2</h2>
+
+    {% if error_message %}
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+            <strong>{{error_message}}</strong>
+        </div>  
+    {% endif %}
 
     <div class="score-board">
         <span>{{request.user}}</span>
@@ -34,31 +41,32 @@
             fear someone is trying to stop our research. I've backuped my research into severals clues. You need to go through 
             the problems. Find the location of the gene. I hope you can cure my people. Good bye.
         </div>
-
         <div class="clue-2">
             <span><a href="https://drive.google.com/file/d/1oqq1tqI-d6YICBI6dArz4BT-05aI0Kun">unknown.txt</a></span>
         </div>
+    </div><br>
+
+    <form action="{% url 'quiz2' %}" method="post"> {% csrf_token %}
+        <input type="text" name="UnlockKey" placeholder="Gene Location"> 
+        {% if request.user.team.quiz_2_status == False %}
+            <button type="submit" class="button button-green">Submit</button>
+        {% else %}
+            <button type="submit" class="button button-black" disabled>Submit</button>
+        {% endif %}
+    </form>
+
+    <div class="status">
+        {% if request.user.team.quiz_2_status == False %}
+            <span>Issue 2: Unsolved</span>
+        {% else %}
+            <span>Issue 2: Solved</span>
+            <a href="{% url 'quiz3' %}" class="button button-red">Issue 3</a>
+        {% endif %}
     </div>
 
-<br>
-
-
-<form action="{% url 'quiz2' %}" method="post"> {% csrf_token %}
-    <input type="text" name="geneL" placeholder="Gene Location"> 
-    <button type="submit" class="button button-green">Submit</button>
-</form>
-
-<div class="status">
-    {% if request.user.team.quiz_2_status == False %}
-        <span>Quiz 2: Unsolved</span>
-    {% else %}
-        <span>Quiz 2: Solved</span>
-        <a href="{% url 'quiz3' %}" class="button button-red">Quiz 3</a>
-    {% endif %}
-</div>
-
-
-<footer><span>&copy; 2024 | </span> <span><a href="#">NYBB - SUST</a></span></footer>
-
+    <footer><span>&copy; 2024 | </span> <span><a href="#">NYBB - SUST</a></span></footer>
 </body>
 </html>
+
+
+

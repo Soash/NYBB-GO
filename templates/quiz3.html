@@ -3,17 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz 3</title>
+
+    <title>Issue 3</title>
     
     {% load static %}
     <link rel="stylesheet" href="{% static 'common.css' %}">
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 </head>
 <body>
-    <a href="{% url 'index' %}">
-        <img src="https://i.ibb.co/7SwXPgX/nybbt.jpg" alt="NYBB Logo" class="logo">
-    </a>
+    <a href="{% url 'index' %}"><img src="https://i.ibb.co/7SwXPgX/nybbt.jpg" alt="NYBB Logo" class="logo"></a>
     <h1>Genetic Odyssey</h1>
+    <h2>Issue 3</h2>
+    
+    {% if error_message %}
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+            <strong>{{error_message}}</strong>
+        </div>  
+    {% endif %}
 
     <div class="score-board">
         <span>{{request.user}}</span>
@@ -27,47 +34,46 @@
             of Phenylalanine in the body, we need to produce and supply it to the body. This will be 
             done using recombinant DNA technology, utilizing bacteria for the production process. 
             Bacteria can be found in the following locations:
-
-            <div>
-            <br>
-            Location 1: <br>
-                In a quiet realm, where whispers roam,<br>
-                Pages whisper secrets, a silent tome.<br>
-                Seek me where knowledge finds its home,<br>
-                In halls where thoughts and dreams have flown.<br>
-                <br>
-            Location 2:<br>
-                With flag held high and book in hand,<br>
-                Two students brave take their stand.<br>
-                A symbol of hope, a nation's plea,<br>
-                What war memorial stands tall and free?<br>
+            <div><br>
+                Location 1: <br>
+                    In a quiet realm, where whispers roam,<br>
+                    Pages whisper secrets, a silent tome.<br>
+                    Seek me where knowledge finds its home,<br>
+                    In halls where thoughts and dreams have flown.<br>
+                    <br>
+                Location 2:<br>
+                    With flag held high and book in hand,<br>
+                    Two students brave take their stand.<br>
+                    A symbol of hope, a nation's plea,<br>
+                    What war memorial stands tall and free?<br>
             </div>
-
-            <p>
-                Hint: Unlock Key is the Word Value of bacteria
-            </p>
+            <div class="clue-2">
+                <span>Hint: Unlock Key is the Word Value of bacteria</span>
+            </div>
         </div>
+    </div><br>
+
+    <form action="{% url 'quiz3' %}" method="post"> {% csrf_token %}
+        <input type="text" name="UnlockKey" placeholder="Unlock Key"> 
+        {% if request.user.team.quiz_3_status == False %}
+            <button type="submit" class="button button-green">Submit</button>
+        {% else %}
+            <button type="submit" class="button button-black" disabled>Submit</button>
+        {% endif %}
+    </form>
+
+    <div class="status">
+        {% if request.user.team.quiz_3_status == False %}
+            <span>Issue 3: Unsolved</span>
+        {% else %}
+            <span>Issue 3: Solved</span>
+            <a href="{% url 'quiz4' %}" class="button button-green">Issue 4</a>
+        {% endif %}
     </div>
 
-<br>
-
-
-<form action="{% url 'quiz3' %}" method="post"> {% csrf_token %}
-    <input type="text" name="UnlockKey" placeholder="Unlock Key"> 
-    <button type="submit" class="button button-red">Submit</button>
-</form>
-
-<div class="status">
-    {% if request.user.team.quiz_3_status == False %}
-        <span>Quiz 3: Unsolved</span>
-    {% else %}
-        <span>Quiz 3: Solved</span>
-        <a href="{% url 'quiz4' %}" class="button button-green">Quiz 4</a>
-    {% endif %}
-</div>
-
-
-<footer><span>&copy; 2024 | </span> <span><a href="#">NYBB - SUST</a></span></footer>
-
+    <footer><span>&copy; 2024 | </span> <span><a href="#">NYBB - SUST</a></span></footer>
 </body>
 </html>
+
+
+

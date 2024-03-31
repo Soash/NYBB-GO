@@ -1,31 +1,27 @@
 <!DOCTYPE html>
-<!-- Coding By CodingNepal - www.codingnepalweb.com -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hangman Game JavaScript | CodingNepal</title>
+
+    <title>Issue 4</title>
 
     {% load static %}
-
-    
-    <link rel="stylesheet" href="{% static 'quiz4.css' %}">
     <link rel="stylesheet" href="{% static 'common.css' %}">
+    <link rel="stylesheet" href="{% static 'quiz4.css' %}">
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <script src="{% static 'word-list.js' %}"></script>
-
     <style>
          h1{margin: 20px;}
         .score-board span{box-sizing:content-box;}
     </style>
 </head>
 <body>
-    <a href="{% url 'index' %}">
-        <img src="https://i.ibb.co/7SwXPgX/nybbt.jpg" alt="NYBB Logo" class="logo">
-    </a>
+    <a href="{% url 'index' %}"><img src="https://i.ibb.co/7SwXPgX/nybbt.jpg" alt="NYBB Logo" class="logo"></a>
     <h1>Genetic Odyssey</h1>
+    <h2>Issue 4</h2>
 
-    <div class="score-board">
+    <div class="score-board" style="margin: 20px 0px;">
         <span>{{request.user}}</span>
         <span>Score: {{request.user.team.score}}</span>
     </div>
@@ -36,13 +32,10 @@
             <h4>Game Over!</h4> <br>
             <button class="play-again">Play Again</button><br>
 
-            {% comment %} <button onclick="window.location.href=`{% url 'index' %}`" class="play-again click-me">Click Me</button> {% endcomment %}
-
             <form action="{% url 'quiz4' %}" method="post" class="click-me"> {% csrf_token %}
                 <input type="text" name="UnlockKey" placeholder="Unlock Key: 6666"> 
                 <button type="submit" class="button button-red">Submit</button>
             </form>
-
         </div>
     </div>
     <div style="display: flex; justify-content: center;">
@@ -60,8 +53,16 @@
         </div>
     </div>
 
-    <footer><span>&copy; 2024 | </span> <span><a href="#">NYBB - SUST</a></span></footer>
+    <div class="status">
+        {% if request.user.team.quiz_4_status == False %}
+            <span>Issue 4: Unsolved</span>
+        {% else %}
+            <span>Issue 4: Solved</span>
+            <a href="{% url 'quiz5' %}" class="button button-green">Issue 5</a>
+        {% endif %}
+    </div>
 
+    <footer><span>&copy; 2024 | </span> <span><a href="#">NYBB - SUST</a></span></footer>
 
   <script>
         // Define the URLs for images using Django template syntax
@@ -202,3 +203,6 @@
 
 </body>
 </html>
+
+
+

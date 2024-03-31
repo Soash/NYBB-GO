@@ -8,14 +8,6 @@
     font-family: "Open Sans", sans-serif;
 }
 
-/* body {
-    display: flex;
-    padding: 0 10px;
-
-    min-height: 100vh;
-    background: #5E63BA;
-} */
-
 .container {
     display: flex;
     width: 850px;

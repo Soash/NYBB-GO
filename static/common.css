@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-*{
+
+* {
     font-family: "Outfit", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
 }
 
-.logo{
+.logo {
     width: 300px;
     display: block;
     margin-left: auto;
@@ -23,24 +24,38 @@
     border-radius: 25px;
 }
 
-.button-red {background-color: #f44336;}
-.button-green {background-color: #04AA6D;}
+.button-red {
+    background-color: #f44336;
+}
+
+.button-green {
+    background-color: #04AA6D;
+}
+
+.button-blue {
+    background-color: #30336b;
+}
+
+.button-black {
+    background-color: #2d3436;
+}
 
 
-
-h1, h2{
+h1,
+h2 {
     text-align: center;
 }
 
 
 
-.score-board{
+.score-board {
     display: flex;
     justify-content: center;
-    gap:100px;
+    gap: 100px;
     margin-bottom: 20px;
 }
-.score-board span{
+
+.score-board span {
     width: 100px;
     text-align: center;
     border-radius: 25px;
@@ -51,29 +66,32 @@ h1, h2{
 
 
 
-.clue{
+.clue {
     background-color: #fdcb6e;
     border: 3px solid #000000;
     border-radius: 25px;
     padding: 20px;
 }
-.clue-1{
+
+.clue-1 {
     text-align: justify;
     padding: 0px 100px;
 }
-.clue-2{
+
+.clue-2 {
     margin-top: 20px;
     display: flex;
     justify-content: center;
 }
-.clue-2 span{
+
+.clue-2 span {
     background-color: #ececec;
     padding: 10px 25px;
     border-radius: 25px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
-.center{
+.center {
     display: flex;
     justify-content: center;
 }
@@ -82,18 +100,22 @@ h1, h2{
 
 
 
-form{
+form {
     display: flex;
     justify-content: center;
     gap: 10px;
 }
-form .button{
+
+form .button {
     width: 100px;
 }
+
 input[type="number"]::-webkit-inner-spin-button {
     display: none;
 }
-input[type="number"], input[type="text"] {
+
+input[type="number"],
+input[type="text"] {
     appearance: textfield;
     -moz-appearance: textfield;
     -webkit-appearance: textfield;
@@ -103,7 +125,7 @@ input[type="number"], input[type="text"] {
     border: 2px solid #04AA6D;
 }
 
-.status{
+.status {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -114,7 +136,7 @@ input[type="number"], input[type="text"] {
 
 /* For Mobile */
 @media only screen and (max-width: 767px) {
-    .clue-1{
+    .clue-1 {
         text-align: justify;
         padding: 0;
     }
@@ -128,7 +150,26 @@ input[type="number"], input[type="text"] {
 
 
 
-
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    margin: 20px;
+    text-align: center;
+    border-radius: 50px;
+}
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.closebtn:hover {
+    color: black;
+}
 
 
 
@@ -143,14 +184,16 @@ input[type="number"], input[type="text"] {
 
 
 footer {
-    margin-top: 20px;
+    margin: 50px 0px;
     text-align: center;
     color: #666;
 }
+
 footer a {
     color: #007bff;
     text-decoration: none;
 }
+
 footer a:hover {
     text-decoration: underline;
 }
