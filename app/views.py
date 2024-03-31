@@ -31,7 +31,7 @@ def quiz1(request):
                 team.save()
                 return redirect(quiz2)
         else:
-            return render(request, 'quiz3.html', {'error_message': 'Incorrect code entered!'})
+            return render(request, 'quiz1.html', {'error_message': 'Incorrect code entered!'})
     return render(request, 'quiz1.html')
 
 
@@ -116,8 +116,8 @@ def quiz5(request):
                     team.quiz_5_status = True
                     team.save()
                     return redirect('quiz6')
+            return render(request, 'quiz5.html', {'error_message': 'Incorrect code entered!'})
         return render(request, 'quiz5.html')
-    
     return redirect('quiz4')
 
 @login_required
@@ -132,9 +132,14 @@ def quiz6(request):
                         team.score += 100
                     team.quiz_6_status = True
                     team.save()
-                    return redirect('index')
+                    return redirect('congrats')
+            else:
+                if hasattr(request.user, 'team'):
+                    team = request.user.team
+                    team.score -= 50
+                    team.save()
+                    return render(request, 'quiz6.html', {'error_message': 'Incorrect code entered!'})
         return render(request, 'quiz6.html')
-    
     return redirect('quiz5')
 
 
@@ -143,7 +148,6 @@ def quiz6(request):
 def congrats(request):
     if request.user.team.quiz_6_status == True:
         return render(request, 'congrats.html')
-    
     return redirect('quiz6')
 
 def update_score(request):
@@ -180,7 +184,6 @@ def signin(request):
 def signout(request):
     logout(request)
     return redirect('signin')
-
 
 
 

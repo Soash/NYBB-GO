@@ -34,6 +34,13 @@
     <h1>Genetic Odyssey</h1>
     <h2>Issue 6</h2>
 
+    {% if error_message %}
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+            <strong>{{error_message}}</strong>
+        </div>  
+    {% endif %}
+
     <div class="score-board">
         <span>{{request.user}}</span>
         <span>Score: {{request.user.team.score}}</span>
@@ -44,6 +51,7 @@
             But the plot thickens. A DNA sample of a suspect falls into your hands, 
             offering a chance to uncover the mastermind behind the chaos. Through DNA fingerprinting, 
             can you decipher the identity of the culprit and bring an end to their sinister machinations?
+            Alert! Failed to indentify suspect will cost you -50 points. 
         </div>
         <div class="clue-1" style="text-align: left;">
             <div class="center">

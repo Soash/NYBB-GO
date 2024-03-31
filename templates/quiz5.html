@@ -42,6 +42,13 @@
     <h1>Genetic Odyssey</h1>
     <h2>Issue 5</h2>
 
+    {% if error_message %}
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+            <strong>{{error_message}}</strong>
+        </div>  
+    {% endif %}
+
     <div class="score-board">
         <span>{{request.user}}</span>
         <span>Score: {{request.user.team.score}}</span>
