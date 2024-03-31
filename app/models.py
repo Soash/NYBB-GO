@@ -11,6 +11,9 @@ class Team(models.Model):
     quiz_1_status = models.BooleanField(default=False)
     quiz_2_status = models.BooleanField(default=False)
     quiz_3_status = models.BooleanField(default=False)
+    quiz_4_status = models.BooleanField(default=False)
+    quiz_5_status = models.BooleanField(default=False)
+    quiz_6_status = models.BooleanField(default=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):

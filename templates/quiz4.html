@@ -35,7 +35,14 @@
             <img src="#" alt="gif">
             <h4>Game Over!</h4> <br>
             <button class="play-again">Play Again</button><br>
-            <button onclick="window.location.href=`{% url 'index' %}`" class="play-again click-me">Click Me</button>
+
+            {% comment %} <button onclick="window.location.href=`{% url 'index' %}`" class="play-again click-me">Click Me</button> {% endcomment %}
+
+            <form action="{% url 'quiz4' %}" method="post" class="click-me"> {% csrf_token %}
+                <input type="text" name="UnlockKey" placeholder="Unlock Key: 6666"> 
+                <button type="submit" class="button button-red">Submit</button>
+            </form>
+
         </div>
     </div>
     <div style="display: flex; justify-content: center;">

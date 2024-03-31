@@ -27,7 +27,7 @@
         </tr>
         {% for team in teams %}
             <tr>
-                <td>{{ team.name }}</td>
+                <td>{{team.name}}</td>
                 <td>{{team.score}}</td>
             </tr>
         {% endfor %}
@@ -37,6 +37,27 @@
         <a href="{% url 'quiz1' %}" class="button button-green">Quiz 1</a>
         <a href="{% url 'signin' %}" class="button button-red">Sign In</a>
         <a href="{% url 'signout' %}" class="button button-red">Sign Out</a>
+    </div>
+
+    <div>
+        <div class="status">
+            {% if request.user.team.quiz_1_status == True %}
+                <a href="{% url 'quiz1' %}" class="button button-green">Quiz 1: <br> Solved</a>{% else %}
+                <a href="{% url 'quiz1' %}" class="button button-red">Quiz 1: Unsolved</a>{% endif %}
+            {% if request.user.team.quiz_2_status == True %}
+                <a href="{% url 'quiz2' %}" class="button button-green">Quiz 2: <br> Solved</a>{% else %}
+                <a href="{% url 'quiz2' %}" class="button button-red">Quiz 2: Unsolved</a>{% endif %}
+            {% if request.user.team.quiz_3_status == True %}
+                <a href="{% url 'quiz3' %}" class="button button-green">Quiz 3: <br> Solved</a>{% else %}
+                <a href="{% url 'quiz3' %}" class="button button-red">Quiz 3: Unsolved</a>{% endif %}
+            {% if request.user.team.quiz_4_status == True %}
+                <a href="{% url 'quiz4' %}" class="button button-green">Quiz 4: <br> Solved</a>{% else %}
+                <a href="{% url 'quiz4' %}" class="button button-red">Quiz 4: Unsolved</a>{% endif %}
+            {% if request.user.team.quiz_5_status == True %}
+                <a href="{% url 'quiz5' %}" class="button button-green">Quiz 5: <br> Solved</a>{% else %}
+                <a href="{% url 'quiz5' %}" class="button button-red">Quiz 5: Unsolved</a>{% endif %}
+     
+        </div>
     </div>
 
 <footer><span>&copy; 2024 | </span> <span><a href="#">NYBB - SUST</a></span></footer>

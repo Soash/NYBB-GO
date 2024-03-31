@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz 3</title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'common.css' %}">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+
+    <style>
+        ol{
+            list-style-type: none;
+            margin-top: 5px;
+            margin-left: -5px;
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'index' %}">
+        <img src="https://i.ibb.co/7SwXPgX/nybbt.jpg" alt="NYBB Logo" class="logo">
+    </a>
+    <h1>Genetic Odyssey</h1>
+
+    <div class="score-board">
+        <span>{{request.user}}</span>
+        <span>Score: {{request.user.team.score}}</span>
+    </div>
+
+    <div class="clue">
+        <div class="clue-1">
+            <div class="center">
+                <img src="{% static 'cw.png' %}" style="width: 30%; border-radius: 10px;">
+            </div>
+                <span>Across:</span>
+                <ol>
+                  <li>1. Replicates only inside the living cells (5)</li>
+                  <li>2. Initial stage of development for multicellular organism (6)</li>
+                  <li>3. Basic building block of regenerative medicine (8)</li>
+                  <li>4. Process of copying genetic information from DNA to RNA (13)</li>
+                  <li>5. Functional unit of genetic regulation found in prokaryotic cells (6)</li>
+                  <li>6. Nucleic acid essential for protein synthesis (3)</li>
+                  
+                </ol>
+                <span>Down:</span>
+                <ol>
+                  <li>7. Cellular organelle where protein synthesis occurs (8)</li>
+                  <li>8. Genetic makeup determining individual characteristics (8)</li>
+                  <li>9. Enzyme breaking down proteins into amino acids (9)</li>
+                  <li>10. A specific characteristic of an individual (5)</li>
+                  <li>11. Unicellular organism (8)</li>
+                  <li>12. Technique amplifying specific DNA segments (3)</li>
+                </ol>
+
+                <p>
+                    Unlock Key: Can be found in prokaryotes.
+                </p>
+        </div>
+    </div>
+
+<br>
+
+
+<form action="{% url 'quiz5' %}" method="post"> {% csrf_token %}
+    <input type="text" name="UnlockKey" placeholder="Unlock Key"> 
+    <button type="submit" class="button button-red">Submit</button>
+</form>
+
+<div class="status">
+    {% if request.user.team.quiz_5_status == False %}
+        <span>Quiz 5: Unsolved</span>
+    {% else %}
+        <span>Quiz 5: Solved</span>
+        <a href="{% url 'index' %}" class="button button-green">Quiz 6</a>
+    {% endif %}
+</div>
+
+
+<footer><span>&copy; 2024 | </span> <span><a href="#">NYBB - SUST</a></span></footer>
+
+</body>
+</html>
