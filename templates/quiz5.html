@@ -98,7 +98,11 @@
 
     <form action="{% url 'quiz5' %}" method="post"> {% csrf_token %}
         <input type="text" name="UnlockKey" placeholder="Unlock Key"> 
-        <button type="submit" class="button button-red">Submit</button>
+        {% if request.user.team.quiz_5_status == False %}
+            <button type="submit" class="button button-green">Submit</button>
+        {% else %}
+            <button type="submit" class="button button-black" disabled>Submit</button>
+        {% endif %}
     </form>
 
     <div class="status">
