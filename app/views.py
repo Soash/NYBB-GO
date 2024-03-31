@@ -89,7 +89,7 @@ def quiz4(request):
                 if hasattr(request.user, 'team'):
                     team = request.user.team
                     if team.quiz_4_status == False:
-                        team.score += 100
+                        team.score += 105
                     team.quiz_4_status = True
                     team.save()
                     return redirect(quiz5)
