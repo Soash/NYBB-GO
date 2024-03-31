@@ -123,10 +123,12 @@ def quiz5(request):
 
 
 def update_score(request):
-    team = request.user.team
-    team.score -= 10
-    team.save()
-    return JsonResponse({'status': 'success'})
+    if request.method == 'POST':
+        team = request.user.team
+        team.score -= 10
+        team.save()
+        return JsonResponse({'status': 'success'})
+    return redirect('index')
 
 
 
