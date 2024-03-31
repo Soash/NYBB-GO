@@ -92,7 +92,7 @@ def quiz4(request):
                     return redirect(quiz5)
                 
         team = request.user.team
-        team.score -= 1
+        team.score -= 5
         team.save()
         return render(request, 'quiz4.html')
     
@@ -151,3 +151,7 @@ def signin(request):
 def signout(request):
     logout(request)
     return redirect('signin')
+
+
+
+
