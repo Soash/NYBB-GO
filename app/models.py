@@ -19,6 +19,10 @@ class Team(models.Model):
     def __str__(self):
         return f"Team: {self.name}"
 
+class Start(models.Model):
+    name = models.CharField(max_length=20, default='X')
+    start = models.BooleanField(default=True)
+
 @receiver(post_save, sender=User)
 def create_team_for_new_user(sender, instance, created, **kwargs):
     if created:

@@ -1,17 +1,20 @@
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.contrib.auth import authenticate, login, logout
-from django.urls import reverse
-from .models import Team
+from .models import Team, Start
 
 
 
 @login_required
 def index(request):
-    teams = Team.objects.all()
-    return render(request, 'index.html', {'teams': teams})
+    start = get_object_or_404(Start, name='start')
+
+    if start.start == True:
+        teams = Team.objects.all()
+        return render(request, 'index.html', {'teams': teams})
+    return render(request, 'wait.html')
 
 
 
