@@ -64,7 +64,7 @@ def quiz3(request):
     if request.user.team.quiz_2_status == True:
         if request.method == 'POST':
             submitted_code = request.POST.get('UnlockKey')
-            if submitted_code == '439':
+            if submitted_code == '373':
                 if hasattr(request.user, 'team'):
                     team = request.user.team
                     if team.quiz_3_status == False:
@@ -154,6 +154,16 @@ def congrats(request):
         return render(request, 'congrats.html')
     return redirect('quiz6')
 
+
+@login_required
+def b_ecoli(request):
+    return render(request, 'b_ecoli.html')
+
+
+@login_required
+def b_lplant(request):
+    return render(request, 'b_lplant.html')
+ 
 
 
 def update_score(request):
