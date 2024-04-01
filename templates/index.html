@@ -37,11 +37,13 @@
         <tr>
             <th>Name</th>
             <th>Score</th>
+            <th>Submission</th>
         </tr>
         {% for team in teams %}
             <tr>
                 <td>{{team.name}}</td>
                 <td>{{team.score}}</td>
+                <td>{{team.time}}</td>
             </tr>
         {% endfor %}
     </table>

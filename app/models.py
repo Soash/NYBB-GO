@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils import timezone
 
 class Team(models.Model):
     name = models.CharField(max_length=20)
@@ -14,6 +15,7 @@ class Team(models.Model):
     quiz_4_status = models.BooleanField(default=False)
     quiz_5_status = models.BooleanField(default=False)
     quiz_6_status = models.BooleanField(default=False)
+    time = models.DateTimeField(default=timezone.datetime(2024, 4, 26, 16, 0, 0))
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):

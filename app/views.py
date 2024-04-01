@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.contrib.auth import authenticate, login, logout
 from .models import Team, Start
+from django.utils import timezone
 
 
 
@@ -120,6 +121,8 @@ def quiz5(request):
         return render(request, 'quiz5.html')
     return redirect('quiz4')
 
+
+
 @login_required
 def quiz6(request):
     if request.user.team.quiz_5_status == True:
@@ -131,6 +134,7 @@ def quiz6(request):
                     if team.quiz_6_status == False:
                         team.score += 100
                     team.quiz_6_status = True
+                    team.time = timezone.now()
                     team.save()
                     return redirect('congrats')
             else:
@@ -149,6 +153,8 @@ def congrats(request):
     if request.user.team.quiz_6_status == True:
         return render(request, 'congrats.html')
     return redirect('quiz6')
+
+
 
 def update_score(request):
     if request.method == 'POST':
