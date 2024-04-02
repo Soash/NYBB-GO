@@ -25,7 +25,13 @@ class Start(models.Model):
     name = models.CharField(max_length=20, default='X')
     start = models.BooleanField(default=True)
 
+class CompetitionSettings(models.Model):
+    start_time = models.DateTimeField()
+    over_time = models.DateTimeField()
+
 @receiver(post_save, sender=User)
 def create_team_for_new_user(sender, instance, created, **kwargs):
     if created:
         Team.objects.create(user=instance, name=instance.username)
+
+

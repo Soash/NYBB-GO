@@ -3,19 +3,43 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.contrib.auth import authenticate, login, logout
-from .models import Team, Start
+from .models import CompetitionSettings, Team, Start
 from django.utils import timezone
+from .decorators import competition_active
+
+
+# def countdown_view(request):
+#     # Get competition settings from the database
+#     competition_settings = CompetitionSettings.objects.first()
+    
+#     # Convert datetime objects to ISO 8601 format
+#     start_time_iso = competition_settings.start_time.isoformat()
+#     over_time_iso = competition_settings.over_time.isoformat()
+    
+#     return render(request, 'wait.html', {'start_time_iso': start_time_iso, 'over_time_iso': over_time_iso})
 
 
 
-@login_required
+# def competition_over_view(request):
+#     # Render your competition over page template
+#     return render(request, 'competition_over.html')
+
+
+
+
+# @login_required
 def index(request):
-    start = get_object_or_404(Start, name='start')
+    # start = get_object_or_404(Start, name='start')
+    # if start.start == True:
+    teams = Team.objects.all()
+    time = CompetitionSettings.objects.all()
 
-    if start.start == True:
-        teams = Team.objects.all()
-        return render(request, 'index.html', {'teams': teams})
-    return render(request, 'wait.html')
+    for i in time:
+        start = i.start_time
+        over = i.over_time
+
+    return render(request, 'index.html', {'teams': teams, 'start': start, 'over': over,})
+    # return render(request, 'wait.html')
 
 
 
@@ -165,7 +189,7 @@ def b_lplant(request):
     return render(request, 'b_lplant.html')
  
 
-
+@login_required
 def update_score(request):
     if request.method == 'POST':
         team = request.user.team
@@ -173,11 +197,6 @@ def update_score(request):
         team.save()
         return JsonResponse({'status': 'success'})
     return redirect('index')
-
-
-
-def custom_404_page(request, exception):
-    return render(request, '404.html', status=404)
 
 
 
@@ -196,10 +215,14 @@ def signin(request):
     return render(request, 'signin.html')
 
 
-
+@login_required
 def signout(request):
     logout(request)
     return redirect('signin')
 
 
+
+
+def custom_404_page(request, exception):
+    return render(request, '404.html', status=404)
 
