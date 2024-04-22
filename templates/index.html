@@ -31,14 +31,6 @@
     <h1>Genetic Odyssey</h1>
     <h2>All Teams</h2>
 
-    <p>
-        Start: <span id='start'>{{start}} </span><br>
-        Over: <span id='over'>{{over}} </span><br>
-
-        Remain: <span id="remaining_time">02:00</span><br>
-        Countdown to Start: <span id="countdown_to_start">00:00:00</span>
-    </p>
-
     <table id="teams">
         <tr>
             <th>Name</th>
@@ -87,48 +79,5 @@
 
     <footer><span>&copy; 2024 | </span> <span><a href="#">NYBB - SUST</a></span></footer>
 
-    {% comment %} <script>  
-        // Function to update countdown timer to start time
-        function updateCountdownToStart(start) {
-            var start_time = new Date(start);
-
-            console.log(start_time)
-            var current_time = new Date();
-
-            console.log(current_time)
-            var remaining_time = start_time - current_time;
-    
-            if (remaining_time > 0) {
-                var hours = Math.floor(remaining_time / (1000 * 60 * 60));
-                var minutes = Math.floor((remaining_time % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((remaining_time % (1000 * 60)) / 1000);
-    
-                hours = (hours < 10 ? "0" : "") + hours;
-                minutes = (minutes < 10 ? "0" : "") + minutes;
-                seconds = (seconds < 10 ? "0" : "") + seconds;
-    
-                document.getElementById("countdown_to_start").textContent = hours + ":" + minutes + ":" + seconds;
-            } else {
-                document.getElementById("countdown_to_start").textContent = "00:00:00";
-            }
-        }
-    
-        // Call the functions with the start and end times from Django template
-        window.onload = function() {
-            var start_time = "{{ start }}";
-            var end_time = "{{ over }}";
-
-            console.log(start_time)
-            
-            updateCountdownToStart(start_time);
-    
-            // Update the remaining time and countdown every second
-            setInterval(function() {
-        
-                updateCountdownToStart(start_time);
-            }, 1000);
-        };
-    </script> {% endcomment %}
-    
 </body>
 </html>
