@@ -17,9 +17,6 @@ urlpatterns = [
     path('update_score/', views.update_score, name='update_score'),
     path('accounts/login/', views.signin, name='signin'),
     path('logout/', views.signout, name='signout'),
-
-    # path('countdown/', countdown_view, name='countdown'),
-    # path('competition_over/', competition_over_view, name='competition_over'),
 ]
 
 handler404 = views.custom_404_page
