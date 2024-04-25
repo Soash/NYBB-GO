@@ -7,10 +7,9 @@ from .models import Team
 from django.utils import timezone
 
 
-# @login_required
+@login_required
 def index(request):
-    teams = Team.objects.all()
-    return render(request, 'index.html', {'teams': teams})
+    return render(request, 'index.html')
 
 
 @login_required
@@ -194,7 +193,9 @@ def signout(request):
     logout(request)
     return redirect('signin')
 
-
+def result(request):
+    teams = Team.objects.all()
+    return render(request, 'result.html', {'teams': teams})
 
 def custom_404_page(request, exception):
     return render(request, '404.html', status=404)

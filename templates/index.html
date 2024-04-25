@@ -29,28 +29,12 @@
 <body>
     <a href="{% url 'index' %}"><img src="https://i.ibb.co/7SwXPgX/nybb.jpg" alt="NYBB Logo" class="logo"></a>
     <h1>Genetic Odyssey</h1>
-    <h2>All Teams</h2>
-
-    <table id="teams">
-        <tr>
-            <th>Name</th>
-            <th>Score</th>
-            <th>Submission</th>
-        </tr>
-        {% for team in teams %}
-            <tr>
-                <td>{{team.name}}</td>
-                <td>{{team.score}}</td>
-                <td>{{team.time}}</td>
-            </tr>
-        {% endfor %}
-    </table>
 
     <div style="display: flex; flex-direction: column; gap: 25px;">
         <div class="score-board" style="margin-bottom:0px;">
             <span>{{request.user}}</span>
             <span>Score: {{request.user.team.score}}</span>
-        </div> 
+        </div>
         <div class="status">
             {% if request.user.team.quiz_1_status == True %}
                 <a href="{% url 'quiz1' %}" class="button button-green">Issue 1: <br> Solved</a>{% else %}
